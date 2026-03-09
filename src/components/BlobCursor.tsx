@@ -148,7 +148,7 @@ export default function BlobCursor({ onBlobMove }: BlobCursorProps) {
         style={{ filter: 'url(#gooey)' }}
       />
 
-      {/* Main blob - Ring outline design for visibility */}
+      {/* Main blob - Simple center pointer */}
       <div
         ref={mainBlobRef}
         className="fixed"
@@ -164,39 +164,20 @@ export default function BlobCursor({ onBlobMove }: BlobCursorProps) {
           zIndex: 9999,
         }}
       >
-        {/* Outer ring with subtle glow */}
-        <div
-          className="absolute w-full h-full rounded-full"
-          style={{
-            border: '2px solid rgba(0, 0, 0, 0.25)',
-            boxShadow: '0 0 15px rgba(0, 0, 0, 0.1), inset 0 0 15px rgba(0, 0, 0, 0.05)',
-            backdropFilter: 'blur(0.5px)',
-          }}
-        />
-        {/* Inner subtle circle */}
-        <div
-          className="absolute w-full h-full rounded-full"
-          style={{
-            border: '1px solid rgba(0, 0, 0, 0.1)',
-            inset: '8px',
-          }}
-        />
         {/* Center dot indicator for precise cursor position */}
         <div
           className="absolute"
           style={{
             left: '50%',
             top: '50%',
-            width: '12px',
-            height: '12px',
-            marginLeft: '-6px',
-            marginTop: '-6px',
-            backgroundColor: '#FFFFFF',
+            width: '8px',
+            height: '8px',
+            marginLeft: '-4px',
+            marginTop: '-4px',
+            backgroundColor: '#111111',
             borderRadius: '50%',
             pointerEvents: 'none',
             zIndex: 10,
-            boxShadow: '0 0 6px rgba(0, 0, 0, 0.3), 0 0 10px rgba(255, 255, 255, 0.8)',
-            border: '1.5px solid rgba(0, 0, 0, 0.2)',
           }}
         />
       </div>
