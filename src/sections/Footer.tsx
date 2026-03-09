@@ -44,23 +44,44 @@ export default function Footer() {
     return () => observer.disconnect();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
+    if (!email) return;
+
+    try {
+      // Configure your form submission endpoint here
+      // Option 1: Formspree (https://formspree.io)
+      // const result = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      //   method: 'POST',
+      //   body: JSON.stringify({ email }),
+      //   headers: { 'Content-Type': 'application/json' },
+      // });
+
+      // Option 2: Custom backend API
+      // const result = await fetch('/api/subscribe', {
+      //   method: 'POST',
+      //   body: JSON.stringify({ email }),
+      //   headers: { 'Content-Type': 'application/json' },
+      // });
+
+      // For now, just store to local state (demo mode)
       setIsSubscribed(true);
       setEmail('');
       setTimeout(() => setIsSubscribed(false), 3000);
+    } catch (error) {
+      console.error('Subscription error:', error);
     }
   };
 
   return (
     <footer
       ref={footerRef}
-      className="relative w-full py-12 sm:py-16 bg-[#FAFAFA] border-t border-[#EEEEEE]"
+      className="relative w-full py-12 sm:py-16 bg-white border-t border-[#EEEEEE]"
+      style={{ position: 'relative', zIndex: 10 }}
     >
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div className="relative max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
         <motion.div
-          className="flex flex-col items-center"
+          className="flex flex-col items-center relative z-10"
           initial={{ opacity: 0, y: 30 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}

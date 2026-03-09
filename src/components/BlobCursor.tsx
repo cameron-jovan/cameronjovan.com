@@ -162,6 +162,7 @@ export default function BlobCursor({ onBlobMove }: BlobCursorProps) {
           filter: 'url(#gooey)',
           willChange: 'transform',
           pointerEvents: 'none',
+          zIndex: 9999,
         }}
       >
         <div 

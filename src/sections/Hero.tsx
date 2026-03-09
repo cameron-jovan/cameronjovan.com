@@ -189,6 +189,15 @@ export default function Hero() {
       {/* Wave Lines Background */}
       <WaveLines mouseX={mousePos.x} mouseY={mousePos.y} />
 
+      {/* White overlay mask for text prominence and hover reveal prominence */}
+      <div
+        className="absolute inset-0 z-5 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.35) 100%)',
+          mixBlendMode: 'screen',
+        }}
+      />
+
       {/* Reveal layer - Image 2 (shown through blob mask) */}
       <div
         ref={revealLayerRef}
