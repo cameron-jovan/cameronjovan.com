@@ -10,7 +10,7 @@ function App() {
   useEffect(() => {
     // Preload images
     const preloadImages = [
-      '/images/hero-bg.jpg',
+      '/images/hero-bg.png',
       '/images/hero-reveal.png',
     ];
 
