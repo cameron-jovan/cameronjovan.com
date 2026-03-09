@@ -200,7 +200,6 @@ export default function Hero() {
           backgroundRepeat: 'no-repeat',
           clipPath: `circle(130px at ${blobPos.x}px ${blobPos.y}px)`,
           willChange: 'clip-path',
-          transition: 'clip-path 0.05s linear',
         }}
       />
 

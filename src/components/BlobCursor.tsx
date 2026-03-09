@@ -122,7 +122,7 @@ export default function BlobCursor({ onBlobMove }: BlobCursorProps) {
   return (
     <div 
       ref={containerRef} 
-      className="fixed inset-0 pointer-events-none z-[100] overflow-hidden"
+      className="fixed inset-0 pointer-events-none z-[100]"
       style={{ mixBlendMode: 'normal' }}
     >
       {/* SVG Filter for Gooey Effect */}
@@ -151,7 +151,7 @@ export default function BlobCursor({ onBlobMove }: BlobCursorProps) {
       {/* Main blob */}
       <div
         ref={mainBlobRef}
-        className="absolute"
+        className="fixed"
         style={{
           left: 0,
           top: 0,
@@ -161,12 +161,29 @@ export default function BlobCursor({ onBlobMove }: BlobCursorProps) {
           marginTop: '-100px',
           filter: 'url(#gooey)',
           willChange: 'transform',
+          pointerEvents: 'none',
         }}
       >
         <div 
           className="w-full h-full rounded-full"
           style={{
             background: 'radial-gradient(circle, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.08) 40%, rgba(0,0,0,0.02) 70%, transparent 100%)',
+          }}
+        />
+        {/* Center cursor indicator for better visibility */}
+        <div
+          className="absolute"
+          style={{
+            left: '50%',
+            top: '50%',
+            width: '8px',
+            height: '8px',
+            marginLeft: '-4px',
+            marginTop: '-4px',
+            backgroundColor: 'rgba(0, 0, 0, 0.25)',
+            borderRadius: '50%',
+            pointerEvents: 'none',
+            zIndex: 1,
           }}
         />
       </div>
