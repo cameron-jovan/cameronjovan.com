@@ -222,6 +222,16 @@ export default function Hero() {
             <span className="block">Cameron</span>
             <span className="block">Jo&apos;van</span>
           </h1>
+          <p
+            className="font-sans text-sm font-medium tracking-wider mt-2"
+            style={{
+              color: isInverted('name') ? '#FFFFFF' : '#666666',
+              textShadow: isInverted('name') ? '0 1px 4px rgba(0,0,0,0.2)' : 'none',
+              transition: 'color 300ms cubic-bezier(0.4, 0, 0.2, 1), text-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+            }}
+          >
+            Founder, Platform Builder
+          </p>
         </div>
 
         {/* Portfolio Link - Top Right */}

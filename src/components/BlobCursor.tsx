@@ -176,14 +176,15 @@ export default function BlobCursor({ onBlobMove }: BlobCursorProps) {
           style={{
             left: '50%',
             top: '50%',
-            width: '8px',
-            height: '8px',
-            marginLeft: '-4px',
-            marginTop: '-4px',
-            backgroundColor: 'rgba(0, 0, 0, 0.25)',
+            width: '10px',
+            height: '10px',
+            marginLeft: '-5px',
+            marginTop: '-5px',
+            backgroundColor: '#FFFFFF',
             borderRadius: '50%',
             pointerEvents: 'none',
             zIndex: 1,
+            boxShadow: '0 0 8px rgba(255, 255, 255, 0.6)',
           }}
         />
       </div>
