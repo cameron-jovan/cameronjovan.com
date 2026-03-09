@@ -49,25 +49,18 @@ export default function Footer() {
     if (!email) return;
 
     try {
-      // Configure your form submission endpoint here
-      // Option 1: Formspree (https://formspree.io)
-      // const result = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-      //   method: 'POST',
-      //   body: JSON.stringify({ email }),
-      //   headers: { 'Content-Type': 'application/json' },
-      // });
+      // Submit to Basin endpoint
+      const result = await fetch('https://usebasin.com/f/20a8040e7fb0', {
+        method: 'POST',
+        body: JSON.stringify({ email }),
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-      // Option 2: Custom backend API
-      // const result = await fetch('/api/subscribe', {
-      //   method: 'POST',
-      //   body: JSON.stringify({ email }),
-      //   headers: { 'Content-Type': 'application/json' },
-      // });
-
-      // For now, just store to local state (demo mode)
-      setIsSubscribed(true);
-      setEmail('');
-      setTimeout(() => setIsSubscribed(false), 3000);
+      if (result.ok) {
+        setIsSubscribed(true);
+        setEmail('');
+        setTimeout(() => setIsSubscribed(false), 3000);
+      }
     } catch (error) {
       console.error('Subscription error:', error);
     }

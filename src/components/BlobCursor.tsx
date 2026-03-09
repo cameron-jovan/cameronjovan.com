@@ -148,44 +148,55 @@ export default function BlobCursor({ onBlobMove }: BlobCursorProps) {
         style={{ filter: 'url(#gooey)' }}
       />
 
-      {/* Main blob */}
+      {/* Main blob - Ring outline design for visibility */}
       <div
         ref={mainBlobRef}
         className="fixed"
         style={{
           left: 0,
           top: 0,
-          width: '200px',
-          height: '200px',
-          marginLeft: '-100px',
-          marginTop: '-100px',
-          filter: 'url(#gooey)',
+          width: '180px',
+          height: '180px',
+          marginLeft: '-90px',
+          marginTop: '-90px',
           willChange: 'transform',
           pointerEvents: 'none',
           zIndex: 9999,
         }}
       >
-        <div 
-          className="w-full h-full rounded-full"
+        {/* Outer ring with subtle glow */}
+        <div
+          className="absolute w-full h-full rounded-full"
           style={{
-            background: 'radial-gradient(circle, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.08) 40%, rgba(0,0,0,0.02) 70%, transparent 100%)',
+            border: '2px solid rgba(0, 0, 0, 0.25)',
+            boxShadow: '0 0 15px rgba(0, 0, 0, 0.1), inset 0 0 15px rgba(0, 0, 0, 0.05)',
+            backdropFilter: 'blur(0.5px)',
           }}
         />
-        {/* Center cursor indicator for better visibility */}
+        {/* Inner subtle circle */}
+        <div
+          className="absolute w-full h-full rounded-full"
+          style={{
+            border: '1px solid rgba(0, 0, 0, 0.1)',
+            inset: '8px',
+          }}
+        />
+        {/* Center dot indicator for precise cursor position */}
         <div
           className="absolute"
           style={{
             left: '50%',
             top: '50%',
-            width: '10px',
-            height: '10px',
-            marginLeft: '-5px',
-            marginTop: '-5px',
+            width: '12px',
+            height: '12px',
+            marginLeft: '-6px',
+            marginTop: '-6px',
             backgroundColor: '#FFFFFF',
             borderRadius: '50%',
             pointerEvents: 'none',
-            zIndex: 1,
-            boxShadow: '0 0 8px rgba(255, 255, 255, 0.6)',
+            zIndex: 10,
+            boxShadow: '0 0 6px rgba(0, 0, 0, 0.3), 0 0 10px rgba(255, 255, 255, 0.8)',
+            border: '1.5px solid rgba(0, 0, 0, 0.2)',
           }}
         />
       </div>
