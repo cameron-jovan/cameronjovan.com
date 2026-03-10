@@ -1,7 +1,7 @@
 import './App.css';
 import Hero from './sections/Hero';
 import Projects from './sections/Projects';
-import Footer from './sections/Footer';
+import FloatingEmailCapture from './components/FloatingEmailCapture';
 
 function App() {
   // const [isLoading, setIsLoading] = useState(true);
@@ -53,7 +53,7 @@ function App() {
       {/* Main Content */}
       <Hero />
       <Projects />
-      <Footer />
+      <FloatingEmailCapture />
     </main>
   );
 }

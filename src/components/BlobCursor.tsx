@@ -44,8 +44,6 @@ export default function BlobCursor({ onBlobMove }: BlobCursorProps) {
       xTo.current?.(e.clientX);
       yTo.current?.(e.clientY);
       
-      blobPos.current = { x: e.clientX, y: e.clientY };
-      
       // Notify parent
       onBlobMove?.(e.clientX, e.clientY);
 
@@ -60,11 +58,19 @@ export default function BlobCursor({ onBlobMove }: BlobCursorProps) {
     // Trail creation loop
     const createTrail = () => {
       if (isMoving.current && trailsContainerRef.current) {
-        const speed = Math.abs(mousePos.current.x - blobPos.current.x) + 
-                      Math.abs(mousePos.current.y - blobPos.current.y);
-        
+        // Compare the current mouse position to the last trail position.
+        // We intentionally keep `blobPos` as the last recorded trail point so we
+        // can detect movement and create a trail behind the cursor.
+        const dx = mousePos.current.x - blobPos.current.x;
+        const dy = mousePos.current.y - blobPos.current.y;
+        const speed = Math.abs(dx) + Math.abs(dy);
+
         if (speed > 10) {
+          // Create trail at the last known blob position (behind the cursor)
           createTrailBlob(blobPos.current.x, blobPos.current.y, speed);
+
+          // Update the last trail position to the current mouse position
+          blobPos.current = { ...mousePos.current };
         }
       }
       requestAnimationFrame(createTrail);
