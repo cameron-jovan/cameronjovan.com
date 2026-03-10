@@ -1,7 +1,6 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
 import gsap from 'gsap';
 import BlobCursor from '../components/BlobCursor';
-import FeaturedIn from '../components/FeaturedIn';
 import WaveLines from '../components/WaveLines';
 
 // Social Icons as SVG components
@@ -243,11 +242,6 @@ export default function Hero() {
           >
             Founder, Platform Builder
           </p>
-        </div>
-
-        {/* Featured In (Hero, bottom left) */}
-        <div className="absolute left-8 sm:left-10 bottom-10 sm:bottom-12 max-w-[24rem] p-5 rounded-2xl bg-white/70 backdrop-blur-sm shadow-lg">
-          <FeaturedIn />
         </div>
 
         {/* Portfolio Link - Top Right */}

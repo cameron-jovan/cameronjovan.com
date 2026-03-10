@@ -1,5 +1,6 @@
 import './App.css';
 import Hero from './sections/Hero';
+import FeaturedIn from './components/FeaturedIn';
 import Projects from './sections/Projects';
 import FloatingEmailCapture from './components/FloatingEmailCapture';
 
@@ -52,6 +53,7 @@ function App() {
 
       {/* Main Content */}
       <Hero />
+      <FeaturedIn />
       <Projects />
       <FloatingEmailCapture />
     </main>

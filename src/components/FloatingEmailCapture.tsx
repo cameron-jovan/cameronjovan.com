@@ -41,46 +41,32 @@ export default function FloatingEmailCapture() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed right-6 bottom-6 z-50 max-w-xs w-full p-4 rounded-2xl bg-white/90 backdrop-blur-md shadow-xl border border-[#E5E7EB]">
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <p className="font-sans text-sm font-semibold text-[#111111]">
-            Get launch updates
-          </p>
-          <p className="font-sans text-xs text-[#666666] mt-1">
-            Join the list for the latest updates and new projects.
-          </p>
-        </div>
-        <button
-          type="button"
-          onClick={() => setIsVisible(false)}
-          className="text-[#999999] hover:text-[#111111] transition-colors duration-150"
-          aria-label="Dismiss email signup"
-        >
-          ✕
-        </button>
-      </div>
-
-      <form onSubmit={handleSubmit} className="mt-3 flex gap-2">
+    <div className="fixed left-1/2 bottom-6 z-50 w-[min(92vw,600px)] -translate-x-1/2 rounded-full bg-white/70 backdrop-blur-lg px-4 py-3 shadow-lg border border-white/50">
+      <form onSubmit={handleSubmit} className="flex items-center gap-3">
+        <span className="whitespace-nowrap font-sans text-sm font-medium text-[#111111]">
+          Get Launch Updates
+        </span>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
-          className="flex-1 px-3 py-2 rounded-full border border-[#DDDDDD] bg-white text-sm text-[#111111] placeholder:text-[#999999] focus:outline-none focus:border-[#111111]"
+          className="flex-1 min-w-[0] rounded-full border border-[#DDDDDD] bg-white/85 px-3 py-2 text-sm text-[#111111] placeholder:text-[#999999] focus:outline-none focus:border-[#111111]"
           required
         />
         <button
           type="submit"
           disabled={isSubmitting}
-          className="px-4 py-2 rounded-full bg-[#111111] text-white text-sm font-medium hover:bg-[#333333] transition-colors duration-150 disabled:opacity-40"
+          className="rounded-full bg-[#111111] px-4 py-2 text-sm font-medium text-white hover:bg-[#333333] transition-colors duration-150 disabled:opacity-40"
         >
-          {isSubscribed ? 'Subscribed' : 'Join'}
+          {isSubscribed ? 'Subscribed' : 'Submit'}
         </button>
       </form>
 
       {isSubscribed && (
-        <p className="mt-2 text-xs font-sans text-[#111111]">Thanks for joining!</p>
+        <p className="mt-2 text-center text-xs font-sans text-[#111111] opacity-80">
+          Thanks for joining!
+        </p>
       )}
     </div>
   );
