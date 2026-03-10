@@ -65,11 +65,11 @@ export default function FeaturedIn({ className }: { className?: string }) {
 
   return (
     <section className={`w-full bg-white ${className ?? ''}`.trim()}>
-      <div className="relative max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-10">
+      <div className="relative max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-10 flex flex-col items-center text-center">
         <p className="font-sans text-xs uppercase tracking-[0.15em] text-[#666666] mb-4">
           Featured In
         </p>
-        <div className="flex items-center gap-8 overflow-x-auto text-[#999999]">
+        <div className="flex items-center justify-center gap-8 overflow-x-auto text-[#999999]">
           {items.map(({ href, label, Logo }) => (
             <a
               key={label}
