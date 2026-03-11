@@ -162,6 +162,47 @@ export default function Hero() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  // Touch support for the reveal layer (keep the hover-style reveal working on mobile)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const isTouch = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
+    if (!isTouch) return;
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      if (!touch) return;
+      const { clientX: x, clientY: y } = touch;
+      setMousePos({ x, y });
+      handleBlobMove(x, y);
+    };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      if (!touch) return;
+      const { clientX: x, clientY: y } = touch;
+      setMousePos({ x, y });
+      handleBlobMove(x, y);
+    };
+
+    const handleTouchEnd = () => {
+      setMousePos({ x: -200, y: -200 });
+      handleBlobMove(-200, -200);
+    };
+
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd);
+    window.addEventListener('touchcancel', handleTouchEnd);
+
+    return () => {
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('touchcancel', handleTouchEnd);
+    };
+  }, [handleBlobMove]);
+
   const scrollToProjects = (e: React.MouseEvent) => {
     e.preventDefault();
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });

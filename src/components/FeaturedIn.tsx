@@ -69,14 +69,14 @@ export default function FeaturedIn({ className }: { className?: string }) {
         <p className="font-sans text-xs uppercase tracking-[0.15em] text-[#666666] mb-4">
           Featured In
         </p>
-        <div className="flex items-center justify-center gap-8 overflow-x-auto text-[#999999]">
+        <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-[#999999]">
           {items.map(({ href, label, Logo }) => (
             <a
               key={label}
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[#111111] transition-colors duration-200 flex-shrink-0"
+              className="hover:text-[#111111] transition-colors duration-200 flex-shrink-0 px-2 py-1 sm:px-3 sm:py-2"
               aria-label={label}
             >
               <Logo />
