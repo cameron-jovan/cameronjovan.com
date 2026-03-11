@@ -1,12 +1,5 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { DepthOfField, EffectComposer } from '@react-three/postprocessing';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { BufferAttribute, BufferGeometry, Color, Float32BufferAttribute, Group, MathUtils, Points, Vector3 } from 'three';
-import { AnimatePresence, motion } from 'framer-motion';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useMemo, useRef } from 'react';
+import { AnimatePresence, motion, useInView } from 'framer-motion';
 
 const PROJECTS = [
   {
@@ -41,263 +34,107 @@ const PROJECTS = [
   },
 ];
 
-const PARTICLE_COUNT = 2000;
-const PARTICLE_SIZE = 0.8;
-const BASE_COLOR = new Color('#050505');
+export default function ProjectsSwarm() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: '-120px' });
 
-function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return window.matchMedia(query).matches;
-  });
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const mql = window.matchMedia(query);
-    const handle = (event: MediaQueryListEvent) => setMatches(event.matches);
-    mql.addEventListener('change', handle);
-    return () => mql.removeEventListener('change', handle);
-  }, [query]);
-
-  return matches;
-}
-
-function hslShiftedColor(base: Color, hue: number, saturation = 0.12, lightness = 0.9) {
-  const hsl = { h: 0, s: 0, l: 0 };
-  base.getHSL(hsl);
-  hsl.h = (hue % 360) / 360;
-  hsl.s = saturation;
-  hsl.l = lightness;
-  const out = new Color();
-  out.setHSL(hsl.h, hsl.s, hsl.l);
-  return out;
-}
-
-function useClusterScrollTriggers(
-  containerRef: React.RefObject<HTMLDivElement | null>,
-  setScrollActive: (idx: number | null) => void
-) {
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const triggers: gsap.core.Timeline[] = [];
-
-    PROJECTS.forEach((project, idx) => {
-      const triggerEl = container.querySelector(`#project-trigger-${project.id}`);
-      if (!triggerEl) return;
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: triggerEl,
-          start: 'top 60%',
-          end: 'bottom 40%',
-          onEnter: () => setScrollActive(idx),
-          onEnterBack: () => setScrollActive(idx),
-          onLeave: () => setScrollActive(null),
-          onLeaveBack: () => setScrollActive(null),
-        },
-      });
-
-      triggers.push(tl);
-    });
-
-    return () => {
-      triggers.forEach((tl) => {
-        if (tl.scrollTrigger) tl.scrollTrigger.kill();
-        tl.kill();
-      });
-    };
-  }, [containerRef, setScrollActive]);
-}
-
-function Particles({
-  activeIndex,
-  nonActiveDim = 0.15,
-  focusDistance,
-  setFocusDistance,
-}: {
-  activeIndex: number | null;
-  nonActiveDim?: number;
-  focusDistance?: number;
-  setFocusDistance?: (distance: number) => void;
-}) {
-  const groupRef = useRef<Group>(null);
-  const meshRef = useRef<Points>(null);
-  const { camera, size } = useThree();
-  const weightsRef = useRef<number[]>(Array(PROJECTS.length).fill(0));
-  const focusDistanceRef = useRef<number>(0);
-
-  const mouseNorm = useRef({ x: 0, y: 0 });
-
-  const clusterCenters = useMemo(() => {
-    const centers: Vector3[] = [];
-    const radius = 3.6;
-
-    for (let i = 0; i < PROJECTS.length; i += 1) {
-      const angle = (i / PROJECTS.length) * Math.PI * 2;
-      const x = Math.cos(angle) * radius;
-      const z = Math.sin(angle) * radius;
-      const y = Math.sin(angle * 0.7) * 1.3;
-      centers.push(new Vector3(x, y, z));
-    }
-
-    return centers;
-  }, []);
-
-  const { positions, basePositions, clusterIds, offsets, colors } = useMemo(() => {
-    const positions = new Float32Array(PARTICLE_COUNT * 3);
-    const basePositions = new Float32Array(PARTICLE_COUNT * 3);
-    const clusterIds = new Float32Array(PARTICLE_COUNT);
-    const offsets = new Float32Array(PARTICLE_COUNT * 3);
-    const colors = new Float32Array(PARTICLE_COUNT * 3);
-
-    const maxRadius = 3.4;
-
-    for (let i = 0; i < PARTICLE_COUNT; i += 1) {
-      const idx = i * 3;
-      const phi = Math.acos(2 * Math.random() - 1);
-      const theta = Math.random() * Math.PI * 2;
-      const radius = Math.cbrt(Math.random()) * maxRadius;
-
-      const x = Math.sin(phi) * Math.cos(theta) * radius;
-      const y = Math.sin(phi) * Math.sin(theta) * radius;
-      const z = Math.cos(phi) * radius;
-
-      basePositions[idx] = x;
-      basePositions[idx + 1] = y;
-      basePositions[idx + 2] = z;
-
-      positions[idx] = x;
-      positions[idx + 1] = y;
-      positions[idx + 2] = z;
-
-      const clusterId = Math.floor((i / PARTICLE_COUNT) * PROJECTS.length);
-      clusterIds[i] = clusterId;
-
-      const offsetRadius = 0.9 + Math.random() * 0.8;
-      const offsetPhi = Math.acos(2 * Math.random() - 1);
-      const offsetTheta = Math.random() * Math.PI * 2;
-
-      offsets[idx] = Math.sin(offsetPhi) * Math.cos(offsetTheta) * offsetRadius;
-      offsets[idx + 1] = Math.sin(offsetPhi) * Math.sin(offsetTheta) * offsetRadius;
-      offsets[idx + 2] = Math.cos(offsetPhi) * offsetRadius;
-
-      const rgb = BASE_COLOR.clone().toArray();
-      colors[idx] = rgb[0];
-      colors[idx + 1] = rgb[1];
-      colors[idx + 2] = rgb[2];
-    }
-
-    return { positions, basePositions, clusterIds, offsets, colors };
-  }, []);
-
-  const geometry = useMemo(() => {
-    const geom = new BufferGeometry();
-    geom.setAttribute('position', new Float32BufferAttribute(positions, 3));
-    geom.setAttribute('color', new Float32BufferAttribute(colors, 3));
-    return geom;
-  }, [positions, colors]);
-
-  const setActiveIndex = useCallback(
-    (idx: number | null) => {
-      const target = idx === null ? 0 : 1;
-
-      PROJECTS.forEach((_, clusterIdx) => {
-        const newWeight = clusterIdx === idx ? target : 0;
-        gsap.to(weightsRef.current, {
-          [clusterIdx]: newWeight,
-          duration: 0.6,
-          ease: 'power2.out',
-        });
-      });
-
-      const defaultDistance = camera.position.length();
-      const distance = idx === null ? defaultDistance : camera.position.distanceTo(clusterCenters[idx]);
-
-      gsap.to(focusDistanceRef, {
-        current: distance,
-        duration: 0.8,
-        ease: 'power2.out',
-        onUpdate: () => {
-          setFocusDistance?.(focusDistanceRef.current);
-        },
-      });
-    },
-    [camera.position, clusterCenters, setFocusDistance]
+  const staggered = useMemo(
+    () => ({
+      hidden: { opacity: 0, y: 24 },
+      visible: (i: number) => ({
+        opacity: 1,
+        y: 0,
+        transition: { delay: i * 0.06, type: 'spring', stiffness: 120, damping: 18 },
+      }),
+    }),
+    []
   );
 
-  useEffect(() => {
-    const defaultDistance = camera.position.length();
-    focusDistanceRef.current = defaultDistance;
-    setFocusDistance?.(defaultDistance);
-  }, [camera.position, setFocusDistance]);
+  return (
+    <section
+      id="projects"
+      ref={sectionRef}
+      className="relative w-full py-20 sm:py-24 bg-white text-slate-900 overflow-hidden"
+    >
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight">
+            Projects
+          </h2>
+          <p className="mt-3 font-sans text-sm sm:text-base text-slate-600">
+            A selection of brands and tools I’ve helped build. Tap or hover to explore.
+          </p>
+        </div>
 
-  useEffect(() => {
-    setActiveIndex(activeIndex);
-  }, [activeIndex, setActiveIndex]);
+        <div className="relative">
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="absolute -top-16 left-1/2 w-[360px] h-[360px] -translate-x-1/2 rounded-full bg-gradient-to-br from-fuchsia-200/40 via-indigo-200/30 to-cyan-200/20 blur-3xl" />
+            <div className="absolute bottom-10 right-10 w-[280px] h-[280px] rounded-full bg-gradient-to-br from-amber-200/30 via-rose-200/20 to-blue-200/10 blur-3xl" />
+          </div>
 
-  useFrame(() => {
-    if (!meshRef.current) return;
+          <div className="relative">
+            <div className="hidden lg:flex lg:items-center lg:justify-between lg:gap-8 mb-8">
+              <p className="max-w-[42ch] text-sm text-slate-600">
+                Track each card as you scroll — the focused project lifts and blooms.
+              </p>
+              <p className="text-xs text-slate-400">Tip: use ⬅️ ⮕ keys or swipe to move cards.</p>
+            </div>
 
-    const pos = meshRef.current.geometry.getAttribute('position') as BufferAttribute;
-    const colorAttr = meshRef.current.geometry.getAttribute('color') as BufferAttribute;
+            <div className="lg:flex lg:items-start lg:gap-6 lg:overflow-x-auto lg:px-2 lg:pb-6 lg:scroll-snap-x lg:snap-x lg:snap-mandatory">
+              <AnimatePresence>
+                {PROJECTS.map((project, idx) => (
+                  <motion.a
+                    key={project.id}
+                    href={project.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group relative flex min-w-[280px] max-w-[320px] flex-col gap-4 rounded-3xl border border-slate-200 bg-white/70 p-6 shadow-sm backdrop-blur transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 lg:snap-center"
+                    initial="hidden"
+                    animate={isInView ? 'visible' : 'hidden'}
+                    custom={idx}
+                    variants={staggered}
+                    whileHover={{ scale: 1.03, y: -4 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-medium tracking-wide text-slate-900">
+                          {project.title}
+                        </p>
+                        <p className="mt-1 text-xs text-slate-500">{project.subtitle}</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex h-2 w-2 rounded-full bg-slate-900" />
+                        <span className="text-xs text-slate-500">Visit</span>
+                      </div>
+                    </div>
 
-    const activeHue = 220 + Math.sin(Date.now() * 0.0003) * 10;
+                    <div className="text-xs font-medium text-slate-500">{project.url.replace(/https?:\/\//, '')}</div>
 
-    for (let i = 0; i < PARTICLE_COUNT; i += 1) {
-      const idx = i * 3;
-      const clusterId = clusterIds[i];
-      const weight = MathUtils.clamp(weightsRef.current[clusterId] ?? 0, 0, 1);
+                    <div className="mt-auto flex items-center justify-between">
+                      <span className="text-xs font-semibold text-slate-700">Open in new tab</span>
+                      <span className="text-xs text-slate-400">→</span>
+                    </div>
 
-      const baseX = basePositions[idx];
-      const baseY = basePositions[idx + 1];
-      const baseZ = basePositions[idx + 2];
+                    <motion.div
+                      className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-slate-200 opacity-0 transition-opacity duration-300"
+                      whileHover={{ opacity: 1 }}
+                    />
+                  </motion.a>
+                ))}
+              </AnimatePresence>
+            </div>
 
-      const center = clusterCenters[clusterId];
-      const offsetX = offsets[idx];
-      const offsetY = offsets[idx + 1];
-      const offsetZ = offsets[idx + 2];
-
-      const targetX = center.x + offsetX;
-      const targetY = center.y + offsetY;
-      const targetZ = center.z + offsetZ;
-
-      pos.array[idx] = MathUtils.lerp(baseX, targetX, weight);
-      pos.array[idx + 1] = MathUtils.lerp(baseY, targetY, weight);
-      pos.array[idx + 2] = MathUtils.lerp(baseZ, targetZ, weight);
-
-      const baseRgb = BASE_COLOR.clone().toArray();
-      const activeRgb = hslShiftedColor(BASE_COLOR, activeHue).toArray();
-
-      const dim = activeIndex === null ? 1 : clusterId === activeIndex ? 1 : nonActiveDim;
-      const mix = clusterId === activeIndex ? 1 : 0;
-
-      colorAttr.array[idx] = MathUtils.lerp(baseRgb[0], activeRgb[0], mix) * dim;
-      colorAttr.array[idx + 1] = MathUtils.lerp(baseRgb[1], activeRgb[1], mix) * dim;
-      colorAttr.array[idx + 2] = MathUtils.lerp(baseRgb[2], activeRgb[2], mix) * dim;
-    }
-
-    pos.needsUpdate = true;
-    colorAttr.needsUpdate = true;
-
-    // Parallax rotation
-    const targetRotX = MathUtils.lerp(groupRef.current!.rotation.x, mouseNorm.current.y * 0.005, 0.08);
-    const targetRotY = MathUtils.lerp(groupRef.current!.rotation.y, mouseNorm.current.x * 0.005, 0.08);
-    groupRef.current!.rotation.set(targetRotX, targetRotY, 0);
-  });
-
-  const handlePointerMove = (event: React.PointerEvent) => {
-    const x = (event.clientX / size.width) * 2 - 1;
-    const y = (event.clientY / size.height) * 2 - 1;
-    mouseNorm.current.x = x;
-    mouseNorm.current.y = y;
-  };
-
-  const handlePointerLeave = () => {
-    mouseNorm.current.x = 0;
-    mouseNorm.current.y = 0;
-  };
+            <div className="mt-6 flex items-center justify-center gap-2 text-xs text-slate-400">
+              <span className="hidden sm:inline">Tip:</span>
+              <span>Swipe or scroll to explore the full set.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
   return (
     <group ref={groupRef} onPointerMove={handlePointerMove} onPointerLeave={handlePointerLeave}>
