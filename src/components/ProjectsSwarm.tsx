@@ -43,7 +43,7 @@ const PROJECTS = [
 
 const PARTICLE_COUNT = 2000;
 const PARTICLE_SIZE = 0.8;
-const BASE_COLOR = new Color('#f0f0f0');
+const BASE_COLOR = new Color('#050505');
 
 function useMediaQuery(query: string) {
   const [matches, setMatches] = useState(() => {
@@ -337,28 +337,28 @@ function ProjectList({ activeIndex, onHover, onLeave }: { activeIndex: number | 
               id={`project-trigger-${project.id}`}
               onMouseEnter={() => onHover(idx)}
               onMouseLeave={onLeave}
-              className="group relative w-full text-left rounded-2xl border border-white/10 bg-white/5 px-6 py-5 backdrop-blur transition-colors duration-300"
+              className="group relative w-full text-left rounded-2xl border border-slate-200 bg-white/60 px-6 py-5 backdrop-blur transition-colors duration-300"
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-sm font-medium tracking-wide text-white/80">
+                  <p className="text-sm font-medium tracking-wide text-slate-900">
                     {project.title}
                   </p>
-                  <p className="mt-1 text-xs text-white/60">{project.subtitle}</p>
+                  <p className="mt-1 text-xs text-slate-600">{project.subtitle}</p>
                 </div>
 
                 <div className="flex items-center gap-2">
                   <span
                     className={`inline-flex h-2 w-2 rounded-full transition-colors ${
-                      isActive ? 'bg-white' : 'bg-white/25'
+                      isActive ? 'bg-slate-900' : 'bg-slate-400'
                     }`}
                   />
-                  <span className="text-xs text-white/50">Visit →</span>
+                  <span className="text-xs text-slate-500">Visit →</span>
                 </div>
               </div>
 
               <motion.div
-                className="absolute inset-0 rounded-2xl ring-1 ring-white/10 pointer-events-none"
+                className="absolute inset-0 rounded-2xl ring-1 ring-slate-200 pointer-events-none"
                 initial={false}
                 animate={{ opacity: isActive ? 1 : 0 }}
                 transition={{ duration: 0.3 }}
@@ -380,17 +380,17 @@ function MobileProjectList() {
           href={project.url}
           target="_blank"
           rel="noreferrer"
-          className="block rounded-2xl border border-white/10 bg-white/5 px-5 py-5 text-left backdrop-blur transition hover:bg-white/10"
+          className="block rounded-2xl border border-slate-200 bg-white/70 px-5 py-5 text-left backdrop-blur transition hover:bg-white"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.45, delay: idx * 0.08 }}
         >
-          <p className="text-sm font-medium tracking-wide text-white/80">
+          <p className="text-sm font-medium tracking-wide text-slate-900">
             {project.title}
           </p>
-          <p className="mt-1 text-xs text-white/60">{project.subtitle}</p>
-          <p className="mt-3 text-xs font-medium text-white/60">Visit →</p>
+          <p className="mt-1 text-xs text-slate-600">{project.subtitle}</p>
+          <p className="mt-3 text-xs font-medium text-slate-600">Visit →</p>
         </motion.a>
       ))}
     </div>
@@ -420,14 +420,14 @@ export default function ProjectsSwarm() {
     <section
       id="projects"
       ref={containerRef}
-      className="relative w-full py-20 sm:py-24 bg-[#050505] text-white overflow-hidden"
+      className="relative w-full py-20 sm:py-24 bg-white text-slate-900 overflow-hidden"
     >
       <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight">
             Projects
           </h2>
-          <p className="mt-3 font-sans text-sm sm:text-base text-white/70">
+          <p className="mt-3 font-sans text-sm sm:text-base text-slate-600">
             Hover or scroll to explore each project.
           </p>
         </div>
@@ -440,11 +440,11 @@ export default function ProjectsSwarm() {
               <ProjectList activeIndex={activeIndex} onHover={handleHover} onLeave={handleLeave} />
             </div>
 
-            <div className="relative h-[480px] w-full overflow-hidden rounded-3xl border border-white/10 bg-black">
+            <div className="relative h-[480px] w-full overflow-hidden rounded-3xl border border-slate-200 bg-white">
               <Canvas
                 shadows={false}
                 camera={{ position: [0, 0, 10], fov: 42 }}
-                style={{ background: '#050505' }}
+                style={{ background: '#fafafa' }}
               >
                 <ambientLight intensity={0.25} />
                 <directionalLight position={[4, 5, 5]} intensity={0.6} />
@@ -462,17 +462,17 @@ export default function ProjectsSwarm() {
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.35 }}
                   >
-                    <p className="text-sm font-semibold tracking-wide text-white/60">
+                    <p className="text-sm font-semibold tracking-wide text-slate-600">
                       {PROJECTS[activeIndex].title}
                     </p>
-                    <p className="mt-2 text-base font-medium text-white">
+                    <p className="mt-2 text-base font-medium text-slate-900">
                       {PROJECTS[activeIndex].subtitle}
                     </p>
                     <a
                       href={PROJECTS[activeIndex].url}
                       target="_blank"
                       rel="noreferrer"
-                      className="mt-3 inline-flex items-center gap-2 text-xs font-medium text-white/70 hover:text-white"
+                      className="mt-3 inline-flex items-center gap-2 text-xs font-medium text-slate-600 hover:text-slate-800"
                     >
                       Visit <span aria-hidden>→</span>
                     </a>
