@@ -74,14 +74,14 @@ function hslShiftedColor(base: Color, hue: number, saturation = 0.12, lightness 
 }
 
 function useClusterScrollTriggers(
-  containerRef: React.RefObject<HTMLDivElement>,
+  containerRef: React.RefObject<HTMLDivElement | null>,
   setScrollActive: (idx: number | null) => void
 ) {
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    const triggers: gsap.core.Tween[] = [];
+    const triggers: gsap.core.Timeline[] = [];
 
     PROJECTS.forEach((project, idx) => {
       const triggerEl = container.querySelector(`#project-trigger-${project.id}`);
@@ -401,7 +401,7 @@ export default function ProjectsSwarm() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollActive, setScrollActive] = useState<number | null>(null);
   const [hoverActive, setHoverActive] = useState<number | null>(null);
-  const [focusDistance, setFocusDistance] = useState(10);
+  const [, setFocusDistance] = useState(10);
 
   const isMobile = useMediaQuery('(max-width: 768px)');
 
