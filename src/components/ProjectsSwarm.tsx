@@ -1,5 +1,6 @@
 import { useMemo, useRef } from 'react';
 import { AnimatePresence, motion, useInView } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 
 const PROJECTS = [
   {
@@ -38,13 +39,13 @@ export default function ProjectsSwarm() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-120px' });
 
-  const staggered = useMemo(
+  const staggered: Variants = useMemo(
     () => ({
       hidden: { opacity: 0, y: 24 },
-      visible: (i: number) => ({
+      visible: (custom: number) => ({
         opacity: 1,
         y: 0,
-        transition: { delay: i * 0.06, type: 'spring', stiffness: 120, damping: 18 },
+        transition: { delay: custom * 0.06, type: 'spring', stiffness: 120, damping: 18 },
       }),
     }),
     []
