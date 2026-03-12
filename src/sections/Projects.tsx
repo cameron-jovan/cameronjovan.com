@@ -39,6 +39,13 @@ const projects: Project[] = [
     url: 'https://listready.ai',
     tint: '#E8F0F8',
   },
+  {
+    id: 'open-source',
+    title: 'Open Source Work',
+    subtitle: 'Libraries & tooling I maintain',
+    url: 'https://github.com/cameronjovan',
+    tint: '#F0F0F0',
+  },
 ];
 
 interface Particle {
