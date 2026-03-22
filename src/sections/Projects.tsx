@@ -12,6 +12,13 @@ interface Project {
 
 const projects: Project[] = [
   {
+    id: 'frauth',
+    title: 'Frauth.app',
+    subtitle: 'Family Anti-AI-Scam Verifier',
+    url: 'https://frauth.app',
+    tint: '#F0E8F8',
+  },
+  {
     id: 'tinyhome',
     title: 'My Tiny Home Hub',
     subtitle: 'Carvana for Tiny Homes',
