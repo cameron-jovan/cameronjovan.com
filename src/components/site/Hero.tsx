@@ -60,10 +60,10 @@ export default function Hero() {
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
           }`}
         >
-          I build by faith.
+          Faith Builder.
           <br className="hidden sm:inline" />
           <span className="text-white/55">
-            {' '}Safer families. Sharper founders. Stronger faith.
+            {' '}On a mission to ground one million families in Christ &mdash; safer, sharper, stronger.
           </span>
         </p>
 
