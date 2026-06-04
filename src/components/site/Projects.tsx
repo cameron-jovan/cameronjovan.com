@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 
 type Project = {
@@ -162,18 +162,15 @@ export default function Projects() {
           <div className="relative">
             <div className="sticky top-24">
               <div className="relative aspect-[1200/630] w-full overflow-hidden rounded-lg border border-white/10 bg-[#0a0a0a] shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={current.name}
-                    initial={{ opacity: 0, scale: 1.02 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.98 }}
-                    transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute inset-0"
+                {PROJECTS.map((p, i) => (
+                  <div
+                    key={p.name}
+                    className="absolute inset-0 transition-opacity duration-500 ease-out"
+                    style={{ opacity: active === i ? 1 : 0, pointerEvents: active === i ? 'auto' : 'none' }}
                   >
-                    <PreviewCard project={current} />
-                  </motion.div>
-                </AnimatePresence>
+                    <PreviewCard project={p} />
+                  </div>
+                ))}
               </div>
 
               {/* Caption beneath the preview */}
