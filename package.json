@@ -1,8 +1,11 @@
 {
-  "name": "my-app",
+  "name": "cameronjovan.com",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=22 <23"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
