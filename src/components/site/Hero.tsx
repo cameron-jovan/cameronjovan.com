@@ -60,10 +60,10 @@ export default function Hero() {
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
           }`}
         >
-          Faith Builder.
+          By Faith.
           <br className="hidden sm:inline" />
           <span className="text-white/55">
-            {' '}The work is the witness.
+            {' '}I build so others build.
           </span>
         </p>
 
