@@ -1,17 +1,36 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import SilkBackground from './SilkBackground';
 
 export default function Hero() {
   const [loaded, setLoaded] = useState(false);
+  const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 200);
     return () => clearTimeout(t);
   }, []);
 
+  // Drive the photo's vertical drift from the scroll progress through the hero.
+  // offset['start start', 'end start'] => progress 0 when hero top hits viewport top,
+  // progress 1 when hero bottom hits viewport top.
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+
+  // Photo translates down + scales slightly as the lockup scrolls away.
+  // End value lands the photo just above where the chevron sits (~bottom of hero).
+  const rawY = useTransform(scrollYProgress, [0, 1], [0, 340]);
+  const y = useSpring(rawY, { stiffness: 120, damping: 28, mass: 0.6 });
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.78]);
+
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-[#070707] text-white">
+    <section
+      ref={heroRef}
+      className="relative min-h-screen w-full overflow-hidden bg-[#070707] text-white"
+    >
       <SilkBackground intensity={0.55} />
 
       {/* Soft top/bottom gradient to anchor type */}
@@ -38,10 +57,11 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Photo cutout — sits between the two lines, perfectly centered */}
-          <div
-            className={`absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transition-all duration-1000 delay-300 ${
-              loaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+          {/* Photo cutout — starts between the two lines, drifts toward the chevron on scroll */}
+          <motion.div
+            style={{ y, scale }}
+            className={`absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-1000 delay-300 ${
+              loaded ? 'opacity-100' : 'opacity-0'
             }`}
           >
             <div className="h-[20vw] w-[14vw] min-h-[130px] min-w-[90px] max-h-[260px] max-w-[180px] overflow-hidden rounded-full opacity-55 shadow-[0_30px_120px_rgba(0,0,0,0.6)] ring-1 ring-white/10">
@@ -51,7 +71,7 @@ export default function Hero() {
                 className="h-full w-full object-cover object-[center_35%]"
               />
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Tagline */}
