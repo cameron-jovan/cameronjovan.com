@@ -1,4 +1,6 @@
+import { useRef } from 'react';
 import { ArrowUpRight } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 type Project = {
   name: string;
@@ -72,10 +74,33 @@ const statusStyles: Record<Project['status'], string> = {
 };
 
 export default function Projects() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'start start'],
+  });
+
+  // Cinematic tilt-rise on entry — adapted from Apple-style ContainerScroll
+  // (motion pattern only — no device chrome, to keep editorial register).
+  const rotateX = useTransform(scrollYProgress, [0, 1], [22, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.92, 1]);
+  const y = useTransform(scrollYProgress, [0, 1], [80, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.4, 1], [0, 0.6, 1]);
+
   return (
     <section id="projects" className="relative bg-[#070707] text-white">
-      <div className="mx-auto max-w-7xl px-6 py-28 md:py-36">
-        <header className="mb-16 flex flex-col gap-3 md:mb-24 md:flex-row md:items-end md:justify-between">
+      <div
+        ref={sectionRef}
+        className="mx-auto max-w-7xl px-6 py-28 md:py-36"
+        style={{ perspective: '1400px' }}
+      >
+        <motion.header
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-16 flex flex-col gap-3 md:mb-24 md:flex-row md:items-end md:justify-between"
+        >
           <div>
             <p className="font-sans text-xs uppercase tracking-[0.25em] text-white/40">
               The Build
@@ -88,9 +113,18 @@ export default function Projects() {
             A working portfolio across software, housing, faith, and family
             &mdash; shipped and documented in real time.
           </p>
-        </header>
+        </motion.header>
 
-        <ul className="grid grid-cols-1 gap-px overflow-hidden bg-white/[0.06] sm:grid-cols-2 lg:grid-cols-4">
+        <motion.ul
+          style={{
+            rotateX,
+            scale,
+            y,
+            opacity,
+            transformOrigin: 'center top',
+          }}
+          className="grid grid-cols-1 gap-px overflow-hidden bg-white/[0.06] sm:grid-cols-2 lg:grid-cols-4"
+        >
           {PROJECTS.map((p) => (
             <li key={p.name} className="bg-[#070707]">
               <a
@@ -125,7 +159,7 @@ export default function Projects() {
           {Array.from({ length: (2 - (PROJECTS.length % 2)) % 2 }).map((_, i) => (
             <li key={`filler-sm-${i}`} aria-hidden className="hidden bg-[#070707] sm:block lg:hidden" />
           ))}
-        </ul>
+        </motion.ul>
       </div>
     </section>
   );

@@ -81,7 +81,7 @@ export default function Hero() {
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
           }`}
         >
-          Faith Builder.
+          Faith Builder
           <br className="hidden sm:inline" />
           <span className="text-white/55">
             {' '}I show the work. He shows the way.
