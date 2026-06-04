@@ -60,10 +60,10 @@ export default function Hero() {
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
           }`}
         >
-          Always building. Out loud.
+          What you&rsquo;ll need. Before you need it.
           <br className="hidden sm:inline" />
           <span className="text-white/55">
-            {' '}Software, housing, faith, family &mdash; built in the open.
+            {' '}Software &middot; Housing &middot; Faith &middot; Family.
           </span>
         </p>
 

@@ -45,6 +45,12 @@ const PROJECTS: Project[] = [
     href: '#',
   },
   {
+    name: 'Frauth',
+    tagline: 'A family code that AI can’t fake.',
+    status: 'Live',
+    href: 'https://frauth.app',
+  },
+  {
     name: 'Perch',
     tagline: 'Affordable housing. Waitlist only.',
     status: 'Waitlist',
