@@ -60,10 +60,10 @@ export default function Hero() {
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
           }`}
         >
-          What you&rsquo;ll need. Before you need it.
+          I build by faith.
           <br className="hidden sm:inline" />
           <span className="text-white/55">
-            {' '}Software &middot; Housing &middot; Faith &middot; Family.
+            {' '}Safer families. Sharper founders. Stronger faith.
           </span>
         </p>
 
