@@ -118,6 +118,13 @@ export default function Projects() {
               </a>
             </li>
           ))}
+          {/* Fill empty cells in the last row so they paint black, not the divider gray */}
+          {Array.from({ length: (4 - (PROJECTS.length % 4)) % 4 }).map((_, i) => (
+            <li key={`filler-${i}`} aria-hidden className="hidden bg-[#070707] lg:block" />
+          ))}
+          {Array.from({ length: (2 - (PROJECTS.length % 2)) % 2 }).map((_, i) => (
+            <li key={`filler-sm-${i}`} aria-hidden className="hidden bg-[#070707] sm:block lg:hidden" />
+          ))}
         </ul>
       </div>
     </section>
