@@ -12,7 +12,7 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-[#070707] text-white">
-      <SilkBackground intensity={0.32} />
+      <SilkBackground intensity={0.55} />
 
       {/* Soft top/bottom gradient to anchor type */}
       <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-black/30 via-transparent to-black/60" />
@@ -44,11 +44,11 @@ export default function Hero() {
               loaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
             }`}
           >
-            <div className="h-[34vw] w-[20vw] min-h-[180px] min-w-[110px] max-h-[420px] max-w-[260px] overflow-hidden rounded-full shadow-[0_30px_120px_rgba(0,0,0,0.6)] ring-1 ring-white/10">
+            <div className="h-[20vw] w-[14vw] min-h-[130px] min-w-[90px] max-h-[260px] max-w-[180px] overflow-hidden rounded-full opacity-55 shadow-[0_30px_120px_rgba(0,0,0,0.6)] ring-1 ring-white/10">
               <img
                 src="/cameron-hero.png"
                 alt="Cameron Jo'van"
-                className="h-full w-full object-cover object-[center_20%]"
+                className="h-full w-full object-cover object-[center_35%]"
               />
             </div>
           </div>

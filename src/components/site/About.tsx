@@ -11,23 +11,23 @@ export default function About() {
 
         <div className="mt-12 space-y-7 font-sans text-lg leading-relaxed text-white/75 md:text-xl">
           <p>
-            In 2023 I built a tiny home company from a single shipping
-            container in my driveway. Two years later it crossed $1M.
+            In 2024 I founded a tiny home company. Ten months later it had
+            cleared roughly $1M.
           </p>
           <p>
             Then the tariffs hit. The supply chain that made it possible
-            became the cost that killed it. I lost the company and most
-            of the money it made.
+            became the cost that killed it. The business that took 10
+            months to build took weeks to come apart.
           </p>
           <p>
             In May 2026 I sent the last $30,000 back to a customer I owed.
-            I&rsquo;ve still got a ways to go &mdash; but I&rsquo;m not
-            building the same way again.
+            Still got a ways to go &mdash; but I&rsquo;m not building the
+            same way again.
           </p>
           <p>
-            Now I run a portfolio of eight ventures &mdash; software,
-            housing, faith, family &mdash; and I&rsquo;m documenting the
-            full road back. In public. The good takes and the bad ones.
+            Now I run a portfolio of ventures &mdash; software, housing,
+            faith, family &mdash; and I&rsquo;m documenting the full road
+            back. In public. The good takes and the bad ones.
           </p>
         </div>
       </div>

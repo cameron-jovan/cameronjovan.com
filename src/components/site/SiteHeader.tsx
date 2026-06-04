@@ -31,7 +31,7 @@ export default function SiteHeader() {
 
   return (
     <header className="fixed left-0 right-0 top-0 z-50 px-6 py-5">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between">
+      <nav className="mx-auto flex max-w-7xl items-center">
         <div className="relative">
           <button
             ref={btnRef}
@@ -61,22 +61,6 @@ export default function SiteHeader() {
             </div>
           )}
         </div>
-
-        {/* Monogram */}
-        <a
-          href="#"
-          className="font-display text-xl font-black tracking-tight text-white"
-          aria-label="Home"
-        >
-          CJ
-        </a>
-
-        <a
-          href="mailto:cam@jovanconsulting.xyz"
-          className="hidden rounded-full border border-white/20 px-4 py-2 font-sans text-xs uppercase tracking-[0.2em] text-white/75 transition-colors hover:border-white/60 hover:text-white sm:inline-block"
-        >
-          Email
-        </a>
       </nav>
     </header>
   );

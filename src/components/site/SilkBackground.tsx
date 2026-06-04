@@ -64,10 +64,10 @@ export default function SilkBackground({ intensity = 0.35 }: Props) {
           const rnd = noise(x, y);
           const i = Math.max(0, pattern - (rnd / 15.0) * noiseIntensity) * intensity;
 
-          // Warm near-black silk (slight bronze cast for editorial warmth)
-          const r = Math.floor(38 * i + 8);
-          const g = Math.floor(34 * i + 8);
-          const b = Math.floor(32 * i + 8);
+          // Warm low-light silk (visible but restrained, editorial)
+          const r = Math.floor(85 * i + 10);
+          const g = Math.floor(78 * i + 10);
+          const b = Math.floor(72 * i + 10);
 
           const idx = (y * width + x) * 4;
           if (idx < data.length) {
