@@ -10,51 +10,51 @@ type Project = {
 const PROJECTS: Project[] = [
   {
     name: 'TourReady',
-    tagline: 'A space in 3D in 2 minutes.',
+    tagline: 'Your space in 3D in 2 minutes.',
     status: 'Live',
     href: 'https://tourready.ai',
   },
   {
     name: 'ListReady',
-    tagline: 'AI listing studio for real estate agents.',
+    tagline: 'The AI marketing studio for real estate agents. v2 soon.',
     status: 'Live',
     href: 'https://listready.ai',
   },
   {
     name: 'Faith Calibrator',
-    tagline: 'Devotionals & guides for the modern Christian.',
+    tagline: 'Get calibrated in Christ. Men, women, families.',
     status: 'Live',
     href: 'https://faithcalibrator.com',
   },
   {
     name: 'CustodyCal',
-    tagline: 'Custody plan to calendar in one shot.',
+    tagline: 'Upload the plan. Get the calendar.',
     status: 'Building',
     href: 'https://custodycal.ai',
   },
   {
-    name: 'ChristianDoubles',
-    tagline: 'Faith-led couples, IRL.',
+    name: 'Christian Doubles',
+    tagline: 'For Christians who want more than Sunday small talk.',
     status: 'Waitlist',
     href: 'https://christiandoubles.com',
   },
   {
     name: 'Holy Personalities',
-    tagline: '13-test biblical personality quiz.',
+    tagline: 'Find your spiritual gifts in 13 tests.',
     status: 'Beta',
     href: '#',
   },
   {
     name: 'Perch',
-    tagline: 'Affordable housing, reimagined.',
+    tagline: 'Affordable housing. Waitlist only.',
     status: 'Waitlist',
     href: '#',
   },
   {
     name: 'Jo’van Studios',
-    tagline: 'Playbooks for builders.',
+    tagline: 'Skip the trial and error. Get the SOPs.',
     status: 'Live',
-    href: 'https://jovanstudios.com',
+    href: 'https://jovanstudios.gumroad.com',
   },
 ];
 
@@ -79,8 +79,8 @@ export default function Projects() {
             </h2>
           </div>
           <p className="max-w-md font-sans text-base text-white/55">
-            Eight ventures in flight. One man, one mission &mdash; the road
-            back to $1M.
+            Eight ventures in flight. One operator, one model &mdash; built
+            in real time.
           </p>
         </header>
 
@@ -100,7 +100,7 @@ export default function Projects() {
                   <ArrowUpRight className="h-5 w-5 text-white/30 transition-all duration-500 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </div>
                 <div className="mt-10">
-                  <p className="font-sans text-sm text-white/55 md:text-base">
+                  <p className="font-sans text-sm text-white/65 md:text-base">
                     {p.tagline}
                   </p>
                   <p

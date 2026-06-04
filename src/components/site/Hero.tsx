@@ -56,14 +56,14 @@ export default function Hero() {
 
         {/* Tagline */}
         <p
-          className={`mt-10 max-w-2xl px-6 text-center font-sans text-base text-white/70 sm:text-lg md:mt-14 md:text-xl transition-all duration-1000 delay-500 ${
+          className={`mt-10 max-w-2xl px-6 text-center font-sans text-base text-white/85 sm:text-lg md:mt-14 md:text-xl transition-all duration-1000 delay-500 ${
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
           }`}
         >
-          Lost $1M to tariffs. Rebuilding in public.
+          Eight ventures. One operator.
           <br className="hidden sm:inline" />
-          <span className="text-white/45">
-            {' '}Christian &middot; Husband &middot; Girl Dad &middot; Idea Machine.
+          <span className="text-white/55">
+            {' '}Building software, housing, faith, and family &mdash; in the open.
           </span>
         </p>
 
