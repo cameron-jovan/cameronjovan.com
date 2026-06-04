@@ -57,21 +57,22 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Photo cutout — starts between the two lines, drifts toward the chevron on scroll */}
-          <motion.div
-            style={{ y, scale }}
+          {/* Photo cutout — centered between the lines; motion drift on scroll */}
+          <div
             className={`absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-1000 delay-300 ${
               loaded ? 'opacity-100' : 'opacity-0'
             }`}
           >
-            <div className="h-[20vw] w-[14vw] min-h-[130px] min-w-[90px] max-h-[260px] max-w-[180px] overflow-hidden rounded-full opacity-55 shadow-[0_30px_120px_rgba(0,0,0,0.6)] ring-1 ring-white/10">
-              <img
-                src="/cameron-hero.png"
-                alt="Cameron Jo'van"
-                className="h-full w-full object-cover object-[center_35%]"
-              />
-            </div>
-          </motion.div>
+            <motion.div style={{ y, scale }}>
+              <div className="h-[20vw] w-[14vw] min-h-[130px] min-w-[90px] max-h-[260px] max-w-[180px] overflow-hidden rounded-full opacity-55 shadow-[0_30px_120px_rgba(0,0,0,0.6)] ring-1 ring-white/10">
+                <img
+                  src="/cameron-hero.png"
+                  alt="Cameron Jo'van"
+                  className="h-full w-full object-cover object-[center_35%]"
+                />
+              </div>
+            </motion.div>
+          </div>
         </div>
 
         {/* Tagline */}
