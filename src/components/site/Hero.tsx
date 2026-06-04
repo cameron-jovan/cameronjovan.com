@@ -63,7 +63,7 @@ export default function Hero() {
           Faith Builder.
           <br className="hidden sm:inline" />
           <span className="text-white/55">
-            {' '}I build so others build. Faith. Work. Wealth.
+            {' '}The work is the witness.
           </span>
         </p>
 
