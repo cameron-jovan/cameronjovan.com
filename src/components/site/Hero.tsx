@@ -60,10 +60,10 @@ export default function Hero() {
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
           }`}
         >
-          Eight ventures. One operator.
+          Always building. Out loud.
           <br className="hidden sm:inline" />
           <span className="text-white/55">
-            {' '}Building software, housing, faith, and family &mdash; in the open.
+            {' '}Software, housing, faith, family &mdash; built in the open.
           </span>
         </p>
 

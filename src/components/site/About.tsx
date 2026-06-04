@@ -11,9 +11,9 @@ export default function About() {
 
         <div className="mt-12 space-y-7 font-sans text-lg leading-relaxed text-white/75 md:text-xl">
           <p>
-            I run a portfolio of eight ventures &mdash; software, housing,
-            faith, family. The principle is simple. Build one thing well.
-            Then ship the next.
+            I run a working portfolio &mdash; software, housing, faith,
+            family. The principle is simple. Build one thing well. Then
+            ship the next.
           </p>
           <p>
             The model came from impact. In 2024 I built a tiny home

@@ -79,8 +79,8 @@ export default function Projects() {
             </h2>
           </div>
           <p className="max-w-md font-sans text-base text-white/55">
-            Eight ventures in flight. One operator, one model &mdash; built
-            in real time.
+            A working portfolio across software, housing, faith, and family
+            &mdash; shipped and documented in real time.
           </p>
         </header>
 

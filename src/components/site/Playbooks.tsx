@@ -70,8 +70,8 @@ export default function Playbooks() {
             </h2>
           </div>
           <p className="max-w-md font-sans text-base text-white/55">
-            Skip the trial and error. Get the SOPs that built eight
-            ventures. Shipped through Jo&rsquo;van Studios.
+            Skip the trial and error. Get the SOPs I run my own ventures
+            on. Shipped through Jo&rsquo;van Studios.
           </p>
         </header>
 
