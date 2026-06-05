@@ -23,6 +23,7 @@ const PROJECTS: Project[] = [
   { name: 'CustodyCal', tagline: 'Upload the plan. Get the calendar.', status: 'Building', year: '2026', href: 'https://custodycal.ai', accent: '#7AA1C8' },
   { name: 'Holy Personalities', tagline: 'Find your spiritual gifts in 13 tests.', status: 'Beta', year: '2026', href: '#', accent: '#A37AC8' },
   { name: 'Perch', tagline: 'Affordable housing. Waitlist only.', status: 'Waitlist', year: '2026', href: '#', accent: '#7AC89E' },
+  { name: 'Aldoran', tagline: 'Federal modernization, built by hand.', status: 'Live', year: '2026', href: 'https://aldoran.us', accent: '#818CF8' },
   { name: 'Jo’van Studios', tagline: 'Skip the trial and error. Get the SOPs.', status: 'Live', year: '2025', href: 'https://jovanstudios.gumroad.com', og: 'https://jovanstudios.com/assets/og/default.png' },
 ];
 
