@@ -15,6 +15,7 @@ type Project = {
 };
 
 const PROJECTS: Project[] = [
+  { name: 'PERCH', tagline: 'The honest market for modular, manufactured & container homes.', status: 'Waitlist', year: '2026', href: 'https://ownperch.com', og: 'https://ownperch.com/og-default.png' },
   { name: 'TourReady', tagline: 'Your space in 3D in 2 minutes.', status: 'Live', year: '2025', href: 'https://tourready.ai', og: 'https://tourready.ai/og/og-default.png' },
   { name: 'ListReady', tagline: 'The AI marketing studio for real estate agents.', status: 'Live', year: '2025', href: 'https://listready.ai', og: 'https://listready.ai/og-image.png' },
   { name: 'Faith Calibrator', tagline: 'Get calibrated in Christ. Men, women, families.', status: 'Live', year: '2025', href: 'https://faithcalibrator.com', accent: '#C8A47A' },
@@ -22,7 +23,6 @@ const PROJECTS: Project[] = [
   { name: 'Christian Doubles', tagline: 'For Christians who want more than Sunday small talk.', status: 'Waitlist', year: '2026', href: 'https://christiandoubles.com', og: 'https://christiandoubles-waitlist.web.app/og.png' },
   { name: 'CustodyCal', tagline: 'Upload the plan. Get the calendar.', status: 'Building', year: '2026', href: 'https://custodycal.ai', accent: '#7AA1C8' },
   { name: 'Holy Personalities', tagline: 'Find your spiritual gifts in 13 tests.', status: 'Beta', year: '2026', href: '#', accent: '#A37AC8' },
-  { name: 'Perch', tagline: 'Affordable housing. Waitlist only.', status: 'Waitlist', year: '2026', href: '#', accent: '#7AC89E' },
   { name: 'Aldoran', tagline: 'Federal modernization, built by hand.', status: 'Live', year: '2026', href: 'https://aldoran.us', accent: '#818CF8' },
   { name: 'Jo’van Studios', tagline: 'Skip the trial and error. Get the SOPs.', status: 'Live', year: '2025', href: 'https://jovanstudios.gumroad.com', og: 'https://jovanstudios.com/assets/og/default.png' },
 ];
