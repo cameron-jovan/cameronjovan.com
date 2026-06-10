@@ -27,18 +27,7 @@ export default function Hero() {
                 loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
-              <span>CAMER</span>
-              <span
-                aria-label="O"
-                className="relative mx-[0.04em] inline-block aspect-square h-[0.78em] w-[0.78em] overflow-hidden rounded-full ring-1 ring-white/10 shadow-[0_20px_80px_rgba(0,0,0,0.55)]"
-              >
-                <img
-                  src="/cameron-hero.png"
-                  alt="Cameron Jo'van"
-                  className="h-full w-full object-cover object-[center_30%]"
-                />
-              </span>
-              <span>N</span>
+              <span>CAMERON</span>
             </div>
             <div
               className={`block font-display text-[18vw] sm:text-[16vw] md:text-[14vw] lg:text-[13vw] text-white transition-all duration-1000 delay-150 ${
